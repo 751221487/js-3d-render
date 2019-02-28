@@ -1,16 +1,23 @@
 export default class Scene {
   constructor(ctx, width, height) {
     this.ctx = ctx
-    this._time = 0;
-    this.objects = [];
-    this.isPause = false;
+    this._time = 0
+
+    this.mainCamera = null
+    this.objects = []
+    
+    this.isPause = false
     this.width = width
     this.height = height
   }
 
+  setMainCamera(cam) {
+    this.mainCamera = cam
+  }
+
   addObject(o) {
     this.objects.push(o);
-    objects.scene = this
+    o.scene = this
   }
 
   start() {
