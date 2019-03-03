@@ -13,6 +13,7 @@ export default class Scene {
 
   setMainCamera(cam) {
     this.mainCamera = cam
+    cam.setScene(this)
   }
 
   addObject(o) {
@@ -22,14 +23,17 @@ export default class Scene {
 
   start() {
     this.isPause = false;
+    // this._loop()
     window.requestAnimationFrame(this._loop.bind(this));
   }
 
   _loop() {
     if (!this.isPause) {
       this._time++;
+      
       this.ctx.save();
       this.ctx.clearRect(0, 0, this.width, this.height);
+      this.mainCamera._update()
 
       for(let i = 0, l = this.objects.length; i < l; i++) {
         if(this.objects[i].canDestroy) {
@@ -42,7 +46,7 @@ export default class Scene {
       }
       this.ctx.restore();
     }
-    window.requestAnimationFrame(this._loop.bind(this));
+    // window.requestAnimationFrame(this._loop.bind(this));
   }
 
   pause() {

@@ -1,0 +1,1 @@
+export const angle2Radian = angle => Math.PI * angle / 180
