@@ -23,34 +23,27 @@ export default class Scene {
 
   start() {
     this.isPause = false;
-    // this._loop()
-    window.requestAnimationFrame(this._loop.bind(this));
+    this._loop()
+    // setInterval(this._loop.bind(this), 3000)
   }
 
   _loop() {
-    if (!this.isPause) {
-      this._time++;
-      
-      this.ctx.save();
-      this.ctx.clearRect(0, 0, this.width, this.height);
-      this.mainCamera._update()
+    this._time++;
+    
+    this.ctx.save();
+    this.ctx.clearRect(0, 0, this.width, this.height);
+    this.mainCamera._update()
 
-      for(let i = 0, l = this.objects.length; i < l; i++) {
-        if(this.objects[i].canDestroy) {
-          delete this.objects[i]
-          this.objects.splice(i, 1)
-          i--;l--;
-          continue;
-        }
-        this.objects[i] && this.objects[i]._update();
+    for(let i = 0, l = this.objects.length; i < l; i++) {
+      if(this.objects[i].canDestroy) {
+        delete this.objects[i]
+        this.objects.splice(i, 1)
+        i--;l--;
+        continue;
       }
-      this.ctx.restore();
+      this.objects[i] && this.objects[i]._update();
     }
-    // window.requestAnimationFrame(this._loop.bind(this));
-  }
-
-  pause() {
-    this.isPause = true;
+    this.ctx.restore();
   }
 
 }

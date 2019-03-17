@@ -9,4 +9,10 @@ export default class Point {
     let y = height * (1 - this.y) / 2
     return new Point(x, y)
   }
+
+  clip(width, height) {
+    let x = 2 * (this.x - width / 2) / width
+    let y = -2 * (this.y - height / 2) / height
+    return new Point(x, y)
+  }
 }

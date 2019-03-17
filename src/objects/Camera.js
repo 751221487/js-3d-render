@@ -4,7 +4,7 @@ import { lookAt, projection } from '../utils/Matrix'
 
 export default class Camera {
   constructor() {
-    this.Position = [1, 0, 4]
+    this.Position = [0, 0, 3]
     this.Front = [0, 0, 0]
     this.Up = [0, 0, 0]
     this.Right = [0, 0, 0]
@@ -29,7 +29,6 @@ export default class Camera {
 
   updateVector() {
     let direction = [0, 0, 0]
-    console.log(angle2Radian(this.Pitch), angle2Radian(this.Yaw))
     direction[0] = Math.cos(angle2Radian(this.Pitch)) * Math.cos(angle2Radian(this.Yaw));
     direction[1] = Math.sin(angle2Radian(this.Pitch))
     direction[2] = Math.cos(angle2Radian(this.Pitch)) * Math.sin(angle2Radian(this.Yaw));
@@ -39,7 +38,7 @@ export default class Camera {
   }
 
   _update() {
-    this.Yaw ++
+    // this.Yaw ++
     this.updateVector();
   }
 

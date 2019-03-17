@@ -64,8 +64,8 @@ export const rotation = (v, a) => {
 
   return [
     [f1(0), f2(0, 1, 2, -1), f2(0, 2, 1, 1), 0],
-    [f2(1, 0, 2, 1), f1(2), f2(1, 2, 0, -1), 0],
-    [f2(2, 0, 1, -1), f2(2, 1, 0, 1), f1(3), 0],
+    [f2(1, 0, 2, 1), f1(1), f2(1, 2, 0, -1), 0],
+    [f2(2, 0, 1, -1), f2(2, 1, 0, 1), f1(2), 0],
     [0, 0, 0, 1]
   ]
 }
@@ -119,6 +119,6 @@ export const projection = (angle, rate, near, far) => {
 
   res[2][2] = - (far + near) / (far - near);
   res[3][2] = - (2 * far * near) / (far - near);
-  res[3][3] = 1//- (2 * far * near) / (far - near);
+  // res[3][3] = 1- (2 * far * near) / (far - near);
   return res
 }

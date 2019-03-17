@@ -14,6 +14,17 @@ export const normalize = vec => {
   return res
 }
 
+export const castTo = (vec, length) => {
+  if(length > vec.length) {
+    throw new Error(`vector dim less than ${length}`)
+  }
+  let res = []
+  for(let i = 0; i < length; i++) {
+    res.push(vec[i])
+  }
+  return res
+}
+
 export const add = (vec1, vec2) => {
   if(vec1.length !== vec2.length) {
     throw new Error('vector dim not equal')
@@ -21,6 +32,17 @@ export const add = (vec1, vec2) => {
   let res = []
   for(let i = 0; i < vec1.length; i++) {
     res.push(vec1[i] + vec2[i])
+  }
+  return res
+}
+
+export const minus = (vec1, vec2) => {
+  if(vec1.length !== vec2.length) {
+    throw new Error('vector dim not equal')
+  }
+  let res = []
+  for(let i = 0; i < vec1.length; i++) {
+    res.push(vec1[i] - vec2[i])
   }
   return res
 }
