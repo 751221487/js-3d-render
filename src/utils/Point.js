@@ -15,4 +15,8 @@ export default class Point {
     let y = -2 * (this.y - height / 2) / height
     return new Point(x, y)
   }
+
+  addVec(vec) {
+    return new Point(this.x + vec[0], this.y + vec[1])
+  }
 }

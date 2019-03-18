@@ -24,7 +24,7 @@ export default class Scene {
   start() {
     this.isPause = false;
     this._loop()
-    // setInterval(this._loop.bind(this), 3000)
+    setInterval(this._loop.bind(this), 30)
   }
 
   _loop() {
@@ -32,6 +32,7 @@ export default class Scene {
     
     this.ctx.save();
     this.ctx.clearRect(0, 0, this.width, this.height);
+    this.ctx.beginPath();
     this.mainCamera._update()
 
     for(let i = 0, l = this.objects.length; i < l; i++) {

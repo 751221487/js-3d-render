@@ -11,7 +11,7 @@ export default class Mesh {
   }
 
   _update() {
-    // this.transform = multiple(rotation([1, 0, 0], 0.2), this.transform)
+    this.transform = multiple(rotation([0, 1, 0], 0.05), this.transform)
     this._render()
   }
 
@@ -22,9 +22,7 @@ export default class Mesh {
     let view = cam.getViewMatrix()
 
     let t = multiple(view, this.transform)
-
     let transform = multiple(cam.projection, t)
-
     let renderer = new Renderer(ctx, width, height)
 
     for(let i = 0; i < this.vertex.length; i += 3) {

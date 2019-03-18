@@ -24,9 +24,9 @@ export default class Renderer {
     let _a = triangle.points[0]
     let _b = triangle.points[1]
     let _c = triangle.points[2]
-    let a = castTo(numberMultiple(_a, _a[3]), 3)
-    let b = castTo(numberMultiple(_b, _b[3]), 3)
-    let c = castTo(numberMultiple(_c, _c[3]), 3)
+    let a = castTo(_a, 3)
+    let b = castTo(_b, 3)
+    let c = castTo(_c, 3)
     let p = [point.x, point.y, 0]
     let q = [0, 0, 1]
 
@@ -56,24 +56,67 @@ export default class Renderer {
     return false
   }
 
+  drawLine(_point1, _point2) {
+    let point1, point2
+    if(_point1[2] < _point2[2]) {
+      point1 = _point1
+      point2 = _point2
+    } else {
+      point1 = _point2
+      point2 = _point1
+    }
+    let x1 = point1[0], x2 = point2[0]
+    let y1 = point1[1], y2 = point2[1]
+    let z1 = point1[2], z2 = point2[2]
+    let vec = minus(point2, point1)
+    // console.log(x1, y1, z1, x2, y2, z2)
+    if(z1 > 1 && z2 > 1) {
+      return
+    }
+    if(z1 < -1 && z2 < -1) {
+      return
+    }
+    if(z1 < -1 && z2 < 1) {
+      let t = (1 + z1) / (z1 - z2)
+      let p1 = new Point(point1[0], point1[1]).addVec(numberMultiple(vec, t)).NDC(this.width, this.height)
+      let p2 = new Point(x2, y2).NDC(this.width, this.height)
+      this.ctx.moveTo(p1.x, p1.y)
+      this.ctx.lineTo(p2.x, p2.y)
+      this.ctx.stroke()
+      return
+    }
+    if(z1 > -1 && z1 < 1) {
+      let p1 = new Point(x1, y1).NDC(this.width, this.height)
+      let p2 = new Point(x2, y2).NDC(this.width, this.height)
+      this.ctx.moveTo(p1.x, p1.y)
+      this.ctx.lineTo(p2.x, p2.y)
+      this.ctx.stroke()
+      return
+    }
+
+    if(x1 > -1 && z2 > 1) {
+      let t = (1 - z1) / (z2 - z1)
+      let p1 = new Point(x1, y1).NDC(this.width, this.height)
+      let p2 = new Point(point1[0], point1[1]).addVec(numberMultiple(vec, t))
+      this.ctx.moveTo(p1.x, p1.y)
+      this.ctx.lineTo(p2.x, p2.y)
+      this.ctx.stroke()
+      return
+    }
+
+  }
+
   draw(triangle) {
-    let _a = triangle.points[0]
-    let _b = triangle.points[1]
-    let _c = triangle.points[2]
-    let a = castTo(numberMultiple(_a, _a[3]), 3)
-    let b = castTo(numberMultiple(_b, _b[3]), 3)
-    let c = castTo(numberMultiple(_c, _c[3]), 3)
+    let _a = numberMultiple(triangle.points[0], 1 / triangle.points[0][3])
+    let _b = numberMultiple(triangle.points[1], 1 / triangle.points[1][3])
+    let _c = numberMultiple(triangle.points[2], 1 / triangle.points[2][3])
+    let a = castTo(_a, 3)
+    let b = castTo(_b, 3)
+    let c = castTo(_c, 3)
 
-    let pointa = new Point(a[0], a[1]).NDC(800, 600)
-    let pointb = new Point(b[0], b[1]).NDC(800, 600)
-    let pointc = new Point(c[0], c[1]).NDC(800, 600)
-
-    this.ctx.moveTo(pointa.x, pointa.y)
-    this.ctx.lineTo(pointb.x, pointb.y)
-    this.ctx.lineTo(pointc.x, pointc.y)
-    this.ctx.lineTo(pointa.x, pointa.y)
-    this.ctx.stroke()
-
+    this.drawLine(a, b)
+    this.drawLine(a, c)
+    this.drawLine(b, c)
   }
 
   render() {

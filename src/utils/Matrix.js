@@ -95,19 +95,23 @@ export const lookAt = (eye, center, up) => {
 
     let res = unit(4)
     res[0][0] = s[0];
-    res[1][0] = s[1];
-    res[2][0] = s[2];
-    res[0][1] = u[0];
+    res[0][1] = s[1];
+    res[0][2] = s[2];
+
+    res[1][0] = u[0];
     res[1][1] = u[1];
-    res[2][1] = u[2];
-    res[0][2] = -f[0];
-    res[1][2] = -f[1];
+    res[1][2] = u[2];
+
+    res[2][0] = -f[0];
+    res[2][1] = -f[1];
     res[2][2] = -f[2];
-    res[3][0] = -dot(s, eye);
-    res[3][1] = -dot(u, eye);
-    res[3][2] = dot(f, eye);
+
+    res[0][3] = -dot(s, eye);
+    res[1][3] = -dot(u, eye);
+    res[2][3] = dot(f, eye);
     return res;
 }
+
 
 export const projection = (angle, rate, near, far) => {
   angle = Math.PI * angle / 180
@@ -115,10 +119,9 @@ export const projection = (angle, rate, near, far) => {
   let res = zero(4, 4)
   res[0][0] = 1 / (tanHalfFovy * rate)
   res[1][1] = 1 / tanHalfFovy
-  res[2][3] = -1
+  res[3][2] = -1
 
   res[2][2] = - (far + near) / (far - near);
-  res[3][2] = - (2 * far * near) / (far - near);
-  // res[3][3] = 1- (2 * far * near) / (far - near);
+  res[2][3] = - (2 * far * near) / (far - near);
   return res
 }
