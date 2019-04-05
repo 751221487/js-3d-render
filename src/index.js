@@ -1,6 +1,7 @@
 import Scene from './scene/Scene'
 import Mesh from './objects/Mesh'
 import Camera from './objects/Camera'
+import { unit, multiple, rotation } from './utils/Matrix'
 
 let canv = document.getElementById("myCanvas");
 let ctx = canv.getContext("2d");
@@ -94,8 +95,30 @@ const cube = {
   ]
 }
 
-const myScene = new Scene(ctx, 800, 600)
+const plane = {
+  vertex: [
+    [-2, -1, -2],
+    [2, -1, -2],
+    [2, -1, 2],
+    [2, -1, 2],
+    [-2, -1, 2],
+    [-2, -1, -2],
+  ],
+  normal: [
+    [0.0, 1.0, 0.0],
+    [0.0, 1.0, 0.0],
+    [0.0, 1.0, 0.0],
+    [0.0, 1.0, 0.0],
+    [0.0, 1.0, 0.0],
+    [0.0, 1.0, 0.0],
+  ]
+}
+
+const myScene = new Scene(ctx, 300, 225)
 const mainCam = new Camera()
 myScene.setMainCamera(mainCam)
-myScene.addObject(new Mesh(cube, null))
+let transform = multiple(rotation([1, 1, 1], 0.5), unit(4))
+let _cube = new Mesh(cube, transform)
+myScene.addObject(_cube)
+myScene.addObject(new Mesh(plane, null))
 myScene.start()

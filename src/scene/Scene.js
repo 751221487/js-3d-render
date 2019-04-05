@@ -1,3 +1,4 @@
+import Renderer from '../renderer/Renderer'
 export default class Scene {
   constructor(ctx, width, height) {
     this.ctx = ctx
@@ -9,6 +10,7 @@ export default class Scene {
     this.isPause = false
     this.width = width
     this.height = height
+    this.renderer = new Renderer(ctx, width, height)
   }
 
   setMainCamera(cam) {
@@ -24,7 +26,7 @@ export default class Scene {
   start() {
     this.isPause = false;
     this._loop()
-    setInterval(this._loop.bind(this), 30)
+    // window.requestAnimationFrame(this._loop.bind(this));
   }
 
   _loop() {
@@ -44,7 +46,9 @@ export default class Scene {
       }
       this.objects[i] && this.objects[i]._update();
     }
+    this.renderer.render()
     this.ctx.restore();
+    // window.requestAnimationFrame(this._loop.bind(this));
   }
 
 }
