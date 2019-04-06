@@ -1,10 +1,12 @@
 import Point from '../utils/Point'
+import { calcColor } from './shader'
 import { add, minus, dot, cross, numberMultiple, castTo } from '../utils/Vector'
 
 export default class Renderer {
   constructor(ctx, width, height) {
     this.ctx = ctx
     this.triangles = []
+    this.lights = []
     this.width = width
     this.height = height
     this.deepMap = {}
@@ -16,6 +18,14 @@ export default class Renderer {
       normal: normal,
       color: color
     })
+  }
+
+  resetTriangle() {
+    this.triangles = []
+  }
+
+  addLight(light) {
+    this.lights.push(light)
   }
 
   intersect(x, y, triangle) {
@@ -53,7 +63,7 @@ export default class Renderer {
       if(z > -1 && z < 1) {
         if(!this.deepMap[`${x},${y}`] || this.deepMap[`${x},${y}`] > z) {
           this.deepMap[`${x},${y}`] = z
-          return triangle.color
+          return calcColor([point.x, point.y, z], triangle.normal, triangle.color, this.lights[0], this.scene.mainCamera)
         }
       }
     }
@@ -73,6 +83,7 @@ export default class Renderer {
     let y1 = point1[1], y2 = point2[1]
     let z1 = point1[2], z2 = point2[2]
     let vec = minus(point2, point1)
+    this.ctx.strokeStyle = '#fff'
     if(z1 > 1 && z2 > 1) {
       return
     }

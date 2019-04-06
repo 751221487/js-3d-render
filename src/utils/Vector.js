@@ -47,6 +47,17 @@ export const minus = (vec1, vec2) => {
   return res
 }
 
+export const multiple = (vec1, vec2) => {
+  if(vec1.length !== vec2.length) {
+    throw new Error('vector dim not equal')
+  }
+  let res = []
+  for(let i = 0; i < vec1.length; i++) {
+    res.push(vec1[i] * vec2[i])
+  }
+  return res
+}
+
 export const numberMultiple = (vec, num) => {
   let res = []
   vec.forEach(item => {
@@ -83,4 +94,8 @@ export const cross = (vec1, vec2) => {
     vec1[2] * vec2[0] - vec1[0] * vec2[2],
     vec1[0] * vec2[1] - vec1[1] * vec2[0]
   ]
+}
+
+export const reflect = (vec1, vec2) => {
+  return minus(vec1, numberMultiple(vec2, 2 * dot(vec1, vec2)))
 }
