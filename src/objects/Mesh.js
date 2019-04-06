@@ -29,7 +29,7 @@ export default class Mesh {
       let vertex2 = multiplVec(transform, [...this.vertex[i + 2], 1])
       let normal =  multiplVec(this.transform, [...this.normals[i], 1])
 
-      let color = this.colors[i]
+      let color = [this.colors[i], this.colors[i + 1], this.colors[i + 2]] 
       
       renderer.addTraiangle(vertex0, vertex1, vertex2, normal, color)
     }

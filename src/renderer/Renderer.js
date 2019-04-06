@@ -63,7 +63,11 @@ export default class Renderer {
       if(z > -1 && z < 1) {
         if(!this.deepMap[`${x},${y}`] || this.deepMap[`${x},${y}`] > z) {
           this.deepMap[`${x},${y}`] = z
-          return calcColor([point.x, point.y, z], triangle.normal, triangle.color, this.lights[0], this.scene.mainCamera)
+          let color1 = numberMultiple(triangle.color[0], (1 - lambda2 - lambda3))
+          let color2 = numberMultiple(triangle.color[1], lambda2)
+          let color3 = numberMultiple(triangle.color[2], lambda3)
+          let color = add(add(color1, color2), color3)
+          return calcColor([point.x, point.y, z], triangle.normal, color, this.lights[0], this.scene.mainCamera)
         }
       }
     }

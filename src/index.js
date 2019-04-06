@@ -157,21 +157,22 @@ const plane = {
     [0.0, 1.0, 0.0],
   ],
   color: [
-    [0.0, 255, 255],
-    [0.0, 255, 255],
-    [0.0, 255, 255],
-    [0.0, 255, 255],
-    [0.0, 255, 255],
-    [0.0, 255, 255],
+    [0, 255, 0],
+    [255, 0, 0],
+    [0, 0, 255],
+    [255, 255, 0],
+    [0, 255, 255],
+    [255, 0, 255],
   ]
 }
 
 const myScene = new Scene(ctx, 300, 225)
+// const myScene = new Scene(ctx, 800, 600)
 const mainCam = new Camera()
 myScene.setMainCamera(mainCam)
 let transform = multiple(rotation([1, 1, 1], 0.5), unit(4))
 let _cube = new Mesh(cube, transform)
 myScene.addObject(_cube)
 myScene.addObject(new Mesh(plane, null))
-myScene.addLight(new DirectLight([255, 255, 30], [255, 255, 255], [0, 1, 5]))
+myScene.addLight(new DirectLight([255, 255, 255], [255, 255, 255], [-2, 3, 1]))
 myScene.start()
