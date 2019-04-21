@@ -171,8 +171,13 @@ const myScene = new Scene(ctx, 300, 225)
 const mainCam = new Camera()
 myScene.setMainCamera(mainCam)
 let transform = multiple(rotation([1, 1, 1], 0.5), unit(4))
-let _cube = new Mesh(cube, transform)
+let _cube = new Mesh(cube, {
+  transform: transform,
+  update: function() {
+    this.transform = multiple(rotation([0, 1, 0], 0.1), this.transform)
+  }
+})
 myScene.addObject(_cube)
-myScene.addObject(new Mesh(plane, null))
-myScene.addLight(new DirectLight([255, 255, 255], [255, 255, 255], [-2, 3, 1]))
+myScene.addObject(new Mesh(plane, {}))
+myScene.addLight(new DirectLight([255, 200, 127], [255, 255, 255], [-4, 3, 1]))
 myScene.start()

@@ -60,7 +60,7 @@ export const multiple = (vec1, vec2) => {
 
 export const numberMultiple = (vec, num) => {
   let res = []
-  vec.forEach(item => {
+  vec.forEach((item, idx) => {
     res.push(item * num)
   })
   return res

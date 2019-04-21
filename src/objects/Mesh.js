@@ -3,14 +3,18 @@ import { numberMultiple, castTo } from '../utils/Vector'
 import Point from '../utils/Point'
 
 export default class Mesh {
-  constructor(data, transform) {
+  constructor(data, options) {
     this.vertex = data.vertex
     this.normals = data.normal
     this.colors = data.color
-    this.transform = transform || unit(4)
+    this.transform = options.transform || unit(4)
+    if(typeof options.update === 'function') {
+      this.update = options.update.bind(this)
+    }
   }
 
   _update() {
+    this.update && this.update()
     this._render()
   }
 

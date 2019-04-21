@@ -170,8 +170,8 @@ export default class Renderer {
   }
 
   render() {
-    // this.mode1()
-    this.mode2()
+    this.mode1()
+    // this.mode2()
   }
 
 }

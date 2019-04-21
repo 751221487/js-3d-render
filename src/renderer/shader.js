@@ -14,8 +14,8 @@ function diffuseColor(norm, light, color) {
 function specularColor(point, norm, light, camera) {
   let lightDir = normalize(negetive(light.dir))
   let viewDir = normalize(minus(camera.Position, point))
-  let reflectDir = reflect(negetive(lightDir), norm)
-  let spec = Math.pow(Math.max(dot(viewDir, reflectDir), 0.0), 64.0)
+  let reflectDir = reflect(lightDir, norm)
+  let spec = Math.pow(Math.max(dot(viewDir, reflectDir), 0.0), 32.0)
   return numberMultiple(light.specular, spec)
 }
 
