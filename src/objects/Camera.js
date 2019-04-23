@@ -25,7 +25,7 @@ export default class Camera {
   }
 
   getViewMatrix() {
-    return lookAt(this.Position, add(this.Position, this.Front), this.Up);
+    return lookAt(this.Position, this.Front, this.Up);
   }
 
   updateVector() {

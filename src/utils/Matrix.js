@@ -88,8 +88,8 @@ export const scale = (x, y, z) => {
   ]
 }
 
-export const lookAt = (eye, center, up) => {
-    const f = normalize(add(center, negetive(eye)))
+export const lookAt = (eye, front, up) => {
+    const f = normalize(front)
     const s = normalize(cross(f, up))
     const u = cross(s, f)
 
