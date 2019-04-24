@@ -56,7 +56,7 @@ export default class Scene {
       this.objects[i] && this.objects[i]._update();
     }
     this.renderer.render()
-    window.requestAnimationFrame(this._loop.bind(this));
+    // window.requestAnimationFrame(this._loop.bind(this));
   }
 
 }

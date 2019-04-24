@@ -174,7 +174,7 @@ let transform = multiple(rotation([1, 1, 1], 0.5), unit(4))
 let _cube = new Mesh(cube, {
   transform: transform,
   update: function() {
-    this.transform = multiple(rotation([0, 1, 0], 0.1), this.transform)
+    // this.transform = multiple(rotation([0, 1, 0], 0.1), this.transform)
   }
 })
 myScene.addObject(_cube)
